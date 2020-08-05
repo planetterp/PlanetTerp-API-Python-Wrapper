@@ -1,4 +1,4 @@
-# Planet-Terp-API-Examples
+# PlanetTerp API Python Wrapper
 This API Example includes an object, **PlanetTerp.py**, which can be created and called in order to access information from the PlanetTerp API. 
 
 The `PlanetTerp` object uses the `requests` and `json` packages. One or both of these may already be installed for you. To install them to your computer, use something like `pip3` or `brew`. 
