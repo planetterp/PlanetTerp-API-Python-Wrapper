@@ -34,8 +34,8 @@ class PlanetTerp:
             request_string += 'offset=' + str(offset) + '&'
 
         # We ignore the last character as it will be an extra '&'
-        return requests.get(request_string[:-1]).json()
-
+        request_url = request_string[:-1]
+        return requests.get(request_url).json()
 
     # Query Parameters
     # Name    Type    Description
@@ -66,7 +66,8 @@ class PlanetTerp:
             request_string += 'offset=' + str(offset) + '&'
 
         # We ignore the last character as it will be an extra '&'
-        return requests.get(request_string[:-1]).json()
+        request_url = request_string[:-1]
+        return requests.get(request_url).json()
 
 
     # Query Parameters
@@ -90,6 +91,7 @@ class PlanetTerp:
             request_string += 'section=' + section + '&'
 
         # We ignore the last character as it will be an extra '&'
-        return requests.get(request_string[:-1]).json()
+        request_url = request_string[:-1]
+        return requests.get(request_url).json()
     
     
