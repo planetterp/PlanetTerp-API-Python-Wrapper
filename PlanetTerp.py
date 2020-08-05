@@ -8,10 +8,10 @@ class PlanetTerp:
     # Name	    Type	Description
     # name	    string	Required. Show the given course.
     # reviews	boolean	Optional. Show reviews for the course (reviews for professors that taught the course and have this course listed as the one being reviewed). Default: false
-    def course(self, name, reviews = None):
+    def course(self, name, reviews = False):
         request_string = self.url + 'course?name=' + name.replace(" ", "%20")
         if reviews:
-            request_string += '&reviews=' + reviews
+            request_string += '&reviews=true'
 
         return requests.get(request_string).json()
 
@@ -22,16 +22,16 @@ class PlanetTerp:
     # reviews	    boolean	Optional. Show reviews for the course (reviews for professors that taught the course and have this course listed as the one being reviewed). Default: false
     # limit	        integer	Optional. Maximum number of records to return. Must be between 1 and 1000. Default: 100
     # offset	    integer	Optional. Number of records to skip for pagination. Default: 0
-    def all_courses(self, department = None, reviews = None, limit = None, offset = None):
+    def all_courses(self, department = None, reviews = False, limit = None, offset = None):
         request_string = self.url + 'courses?'
         if department:
             request_string += 'department=' + department + '&'
         if reviews:
-            request_string += 'reviews=' + reviews + '&'
+            request_string += 'reviews=true' + '&'
         if limit:
-            request_string += 'limit=' + limit + '&'
+            request_string += 'limit=' + str(limit) + '&'
         if offset:
-            request_string += 'offset=' + offset + '&'
+            request_string += 'offset=' + str(offset) + '&'
 
         # We ignore the last character as it will be an extra '&'
         return requests.get(request_string[:-1]).json()
@@ -41,10 +41,10 @@ class PlanetTerp:
     # Name    Type    Description
     # name    string  Required. Show the given professor.
     # reviews boolean Optional.Show reviews for the professor.Default: false
-    def professor(self, name, reviews = None):
+    def professor(self, name, reviews = False):
         request_string = self.url + 'professor?name=' + name.replace(" ", "%20")
         if reviews:
-            request_string += '&reviews=' + reviews
+            request_string += '&reviews=true'
 
         return requests.get(request_string).json()
 
@@ -54,21 +54,19 @@ class PlanetTerp:
     # reviews	boolean	Optional. Show reviews for the professors. Default: false
     # limit	    integer	Optional. Maximum number of records to return. Must be between 1 and 1000. Default: 100
     # offset	integer	Optional. Number of records to skip for pagination. Default: 0
-    def all_professors(self, type_ = None, reviews = None, limit = None, offset = None):
+    def all_professors(self, type_ = None, reviews = False, limit = None, offset = None):
         request_string = self.url + 'professors?'
         if type_:
             request_string += 'type=' + type_ + '&'
         if reviews:
-            request_string += 'reviews=' + reviews + '&'
+            request_string += 'reviews=true' + '&'
         if limit:
-            request_string += 'limit=' + limit + '&'
+            request_string += 'limit=' + str(limit) + '&'
         if offset:
-            request_string += 'offset=' + offset + '&'
+            request_string += 'offset=' + str(offset) + '&'
 
         # We ignore the last character as it will be an extra '&'
-
-        data = requests.get(request_string[:-1]).json()
-        return data
+        return requests.get(request_string[:-1]).json()
 
 
     # Query Parameters
@@ -92,5 +90,6 @@ class PlanetTerp:
             request_string += 'section=' + section + '&'
 
         # We ignore the last character as it will be an extra '&'
-        data = requests.get(request_string[:-1]).json()
-        return data
+        return requests.get(request_string[:-1]).json()
+    
+    
