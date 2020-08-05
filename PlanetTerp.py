@@ -55,10 +55,10 @@ class PlanetTerp:
     # reviews	boolean	Optional. Show reviews for the professors. Default: false
     # limit	    integer	Optional. Maximum number of records to return. Must be between 1 and 1000. Default: 100
     # offset	integer	Optional. Number of records to skip for pagination. Default: 0
-    def all_professors(self, type = None, reviews = None, limit = None, offset = None):
+    def all_professors(self, type_ = None, reviews = None, limit = None, offset = None):
         request_string = self.url + 'professors?'
         if type:
-            request_string += 'type=' + type + '&'
+            request_string += 'type=' + type_ + '&'
         if reviews:
             request_string += 'reviews=' + reviews + '&'
         if limit:
