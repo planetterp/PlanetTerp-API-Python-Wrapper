@@ -42,7 +42,7 @@ class PlanetTerp:
     # Name    Type    Description
     # name    string  Required. Show the given professor.
     # reviews boolean Optional.Show reviews for the professor.Default: false
-    def professors(self, name, reviews = None):
+    def professor(self, name, reviews = None):
         request_string = self.url + 'professor?name=' + name.replace(" ", "%20")
         if reviews:
             request_string += '&reviews=' + reviews
