@@ -57,7 +57,7 @@ class PlanetTerp:
     # offset	integer	Optional. Number of records to skip for pagination. Default: 0
     def all_professors(self, type_ = None, reviews = None, limit = None, offset = None):
         request_string = self.url + 'professors?'
-        if type:
+        if type_:
             request_string += 'type=' + type_ + '&'
         if reviews:
             request_string += 'reviews=' + reviews + '&'
