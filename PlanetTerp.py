@@ -12,7 +12,7 @@ class PlanetTerp:
         request_string = self.url + 'course?name=' + name.replace(" ", "%20")
         if reviews:
             request_string += '&reviews=' + reviews
-        print("Requested " + request_string)
+
         return requests.get(request_string).json()
 
 
@@ -34,7 +34,6 @@ class PlanetTerp:
             request_string += 'offset=' + offset + '&'
 
         # We ignore the last character as it will be an extra '&'
-        print("Requested " + request_string[:-1])
         return requests.get(request_string[:-1]).json()
 
 
@@ -46,7 +45,7 @@ class PlanetTerp:
         request_string = self.url + 'professor?name=' + name.replace(" ", "%20")
         if reviews:
             request_string += '&reviews=' + reviews
-        print("Requested " + request_string)
+
         return requests.get(request_string).json()
 
     # Query Parameters
@@ -67,7 +66,7 @@ class PlanetTerp:
             request_string += 'offset=' + offset + '&'
 
         # We ignore the last character as it will be an extra '&'
-        print("Requested " + request_string[:-1])
+
         data = requests.get(request_string[:-1]).json()
         return data
 
@@ -93,6 +92,5 @@ class PlanetTerp:
             request_string += 'section=' + section + '&'
 
         # We ignore the last character as it will be an extra '&'
-        print("Requested " + request_string[:-1])
         data = requests.get(request_string[:-1]).json()
         return data
