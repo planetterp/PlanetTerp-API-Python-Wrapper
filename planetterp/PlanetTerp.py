@@ -75,7 +75,7 @@ def all_professors(type_ = None, reviews = False, limit = None, offset = None):
         Only return reviews for the specified instructor type, either professors
         or TAs. Defaults to returning both.
     reviews: bool
-        Also return reviews for the instructors. Defaults to false.
+        Whether to also return reviews for the instructors. Defaults to false.
     limit: int
         Maximum number of courses to return. Must be between 1 and 1000
         inclusive. Defaults to 100.
