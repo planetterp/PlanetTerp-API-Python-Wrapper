@@ -1,10 +1,25 @@
 # PlanetTerp API Python Wrapper
-This API Example includes an object, **PlanetTerp.py**, which can be created and called in order to access information from the PlanetTerp API. 
 
-The `PlanetTerp` object uses the `requests` and `json` packages. One or both of these may already be installed for you. To install them to your computer, use something like `pip3` or `brew`. 
+This is a thin wrapper around the [PlanetTerp API](http://api.planetterp.com/).
 
-The `requests` package allows the `PlanetTerp` object to access data from the internet, enabling it to make API calls. The `json` package converts the JSON data provided by the PlanetTerp API into a Python dictionary for easier use. 
+### Usage
 
-You can find examples of how to use a PlanetTerp object in the **sample_usage.py** file.
+```python
+from planetterp import course, all_courses, professor, all_professors, grades
+import json
 
-To use this code to access the API, simply download or clone this repository, and make your own file in the same folder as **PlanetTerp.py** and **sample_usage.py**.
+def pretty_json(json_object, indentation = 2):
+    return json.dumps(json_object, indent=indentation)
+
+course_ = course(name="CMSC132", reviews="true")
+courses = all_courses(department="CMSC", limit="3")
+prof = professor("Fawzi Emad", reviews="true")
+profs = all_professors(type_="ta", reviews="true", limit="2")
+grades_ = grades(course="CMSC132", professor="Fawzi Emad")
+
+print(pretty_json(course_))
+print(pretty_json(courses))
+print(pretty_json(prof))
+print(pretty_json(profs))
+print(pretty_json(grades_))
+```
