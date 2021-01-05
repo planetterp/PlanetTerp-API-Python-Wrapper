@@ -84,7 +84,7 @@ def professors(type_ = None, reviews = False, limit = 100, offset = 0):
     offset: int, optional
         Number of instructors to skip (offered for pagination). Defaults to 0.
     """
-    if type_ not in ["professor", "ta"]:
+    if type_ and type_ not in ["professor", "ta"]:
         raise ValueError("Expected type to be on of ['professor', 'ta'], got "
                          + str(type_))
     params = {"type" : type_, "reviews": "true" if reviews else "false",
