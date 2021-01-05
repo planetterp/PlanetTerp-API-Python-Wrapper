@@ -9,7 +9,7 @@ import planetterp
 
 course = planetterp.course(name="CMSC132", reviews=True)
 courses = planetterp.courses(department="CMSC", limit=3)
-prof = planetterp.professor("Fawzi Emad", reviews="true")
+prof = planetterp.professor(name="Fawzi Emad", reviews="true")
 profs = planetterp.professors(type_="ta", limit=2)
 grades = planetterp.grades(course="CMSC132", professor="Fawzi Emad")
 
