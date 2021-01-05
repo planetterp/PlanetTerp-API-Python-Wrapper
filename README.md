@@ -1,6 +1,6 @@
 # PlanetTerp API Python Wrapper
 
-This is a thin wrapper around the [PlanetTerp API](http://api.planetterp.com/).
+This is a thin python wrapper around the [PlanetTerp API](http://api.planetterp.com/).
 
 ### Usage
 
