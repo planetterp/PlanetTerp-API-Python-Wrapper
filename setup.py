@@ -1,11 +1,13 @@
 import setuptools
 
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+with open("README.md", "r", encoding="utf-8") as f:
+    long_description = f.read()
+
+__version__ = "1.0.0"
 
 setuptools.setup(
     name="planetterp",
-    version="1.0.0",
+    version=__version__,
     author="PlanetTerp",
     author_email="admin@planetterp.com",
     description="PlanetTerp API Python wrapper",
