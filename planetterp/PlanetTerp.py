@@ -1,101 +1,116 @@
 import requests
 import json
+from urllib.parse import urlencode, quote
 
-
-url = 'https://api.planetterp.com/v1/'
+BASE_URL = 'https://api.planetterp.com/v1/'
 
 def course(name, reviews = False):
     """
     Get a course.
-    Name      Type    Description
-    name      string  Required. Show the given course.
-    reviews   boolean Optional. Show reviews for the course (reviews for professors that taught the course and have this course listed as the one being reviewed). Default: false
+
+    Parameters
+    ----------
+    name: string
+        The name of the course.
+    reviews: bool, optional
+        Whether to also return reviews for the course, specifically reviews for
+        professors that taught the course and have the course listed as the one
+        being reviewed.
     """
-    request_string = url + 'course?name=' + name.replace(" ", "%20")
-    if reviews:
-        request_string += '&reviews=true'
-
-    return requests.get(request_string).json()
+    params = {"name" : name, "reviews": "true" if reviews else "false"}
+    url = BASE_URL + "course?" + urlencode(params)
+    return requests.get(url).json()
 
 
-# Query Parameters
-# Name	        Type	Description
-# department	string	Optional. Only get courses in a department. Must be four characters. Default: all departments
-# reviews	    boolean	Optional. Show reviews for the course (reviews for professors that taught the course and have this course listed as the one being reviewed). Default: false
-# limit	        integer	Optional. Maximum number of records to return. Must be between 1 and 1000. Default: 100
-# offset	    integer	Optional. Number of records to skip for pagination. Default: 0
-def all_courses(department = None, reviews = False, limit = None, offset = None):
-    request_string = url + 'courses?'
-    if department:
-        request_string += 'department=' + department + '&'
-    if reviews:
-        request_string += 'reviews=true' + '&'
-    if limit:
-        request_string += 'limit=' + str(limit) + '&'
-    if offset:
-        request_string += 'offset=' + str(offset) + '&'
+def all_courses(department = None, reviews = False, limit = 100, offset = 0):
+    """
+    Get all courses meeting some criteria.
 
-    # We ignore the last character as it will be an extra '&'
-    request_url = request_string[:-1]
-    return requests.get(request_url).json()
+    Parameters
+    ----------
+    department: string
+        Only return courses in the given department. The department name must be
+        four characters. Defaults to all departments.
+    reviews: bool
+        Also return reviews for the course, specifically reviews for
+        professors that taught the course and have the course listed as the one
+        being reviewed.
+    limit: int
+        Maximum number of courses to return. Must be between 1 and 1000
+        inclusive. Defaults to 100.
+    offset: int
+        Number of courses to skip (offered for pagination). Defaults to 0.
+    """
+    params = {"department" : department,
+              "reviews": "true" if reviews else "false",
+              "limit": limit, "offset": offset}
+    url = BASE_URL + "courses?" + urlencode(params)
+    return requests.get(url).json()
 
 
-# Query Parameters
-# Name    Type    Description
-# name    string  Required. Show the given professor.
-# reviews boolean Optional.Show reviews for the professor.Default: false
 def professor(name, reviews = False):
-    request_string = url + 'professor?name=' + name.replace(" ", "%20")
-    if reviews:
-        request_string += '&reviews=true'
+    """
+    Get a professor.
 
-    return requests.get(request_string).json()
+    Parameters
+    ----------
+    name: str
+        The name of the professor.
+    reviews: bool, optional
+        Whether to also return reviews for the given professor. Defaults to
+        false.
+    """
+    params = {"name" : name, "reviews": "true" if reviews else "false"}
+    url = BASE_URL + "professor?" + urlencode(params)
+    return requests.get(url).json()
 
 
-# Query Parameters
-# Name	    Type	Description
-# type	    string	Optional. Show only reviews for professors or teaching assistants. Default: show both. Options: professor, ta
-# reviews	boolean	Optional. Show reviews for the professors. Default: false
-# limit	    integer	Optional. Maximum number of records to return. Must be between 1 and 1000. Default: 100
-# offset	integer	Optional. Number of records to skip for pagination. Default: 0
 def all_professors(type_ = None, reviews = False, limit = None, offset = None):
-    request_string = url + 'professors?'
-    if type_:
-        request_string += 'type=' + type_ + '&'
-    if reviews:
-        request_string += 'reviews=true' + '&'
-    if limit:
-        request_string += 'limit=' + str(limit) + '&'
-    if offset:
-        request_string += 'offset=' + str(offset) + '&'
+    """
+    Get all professors meeting some criteria.
 
-    # We ignore the last character as it will be an extra '&'
-    request_url = request_string[:-1]
-    return requests.get(request_url).json()
+    Parameters
+    ----------
+    type_: {"professor", "ta"}
+        Only return reviews for the specified instructor type, either professors
+        or TAs. Defaults to returning both.
+    reviews: bool
+        Also return reviews for the instructors. Defaults to false.
+    limit: int
+        Maximum number of courses to return. Must be between 1 and 1000
+        inclusive. Defaults to 100.
+    offset: int
+        Number of courses to skip (offered for pagination). Defaults to 0.
+    """
+    if type_ not in ["professor", "ta"]:
+        raise ValueError("Expected type to be on of ['professor', 'ta'], got "
+                         + str(type_))
+    params = {"type" : type_, "reviews": "true" if reviews else "false",
+              "limit": limit, "offset": offset}
+    # fitler out None args
+    params = {k:v for k, v in params.items() if v is not None}
+    url = BASE_URL + "professors?" + urlencode(params)
+    return requests.get(url).json()
 
 
-# Query Parameters
-# Name	    Type	Description
-# course	string	Optional. Show only grades for the given course.
-# professor	string	Optional. Show only grades for the given professor.
-# semester	string	Optional. Show only grades for the given semester. Semester should be provided as the year followed by the semester code. 01 means Spring and 08 means Fall. For example, 202001 means Spring 2020. Default: all semesters
-# section	string	Optional. Show only grades for the given section. Default: all sections
 def grades(course = None, professor = None, semester = None, section = None):
-    request_string = url + 'grades?'
-    if not course and not professor:
-        print("Error! Must provide either a course or professor as input")
-        return None
-    if course:
-        request_string += 'course=' + course + '&'
-    if professor:
-        request_string += 'professor=' + professor.replace(" ", "%20") + '&'
-    if semester:
-        request_string += 'semester=' + semester + '&'
-    if section:
-        request_string += 'section=' + section + '&'
+    """
+    Get grades for a given course, professor, semester, section, or combination
+    thereof.
 
-    # We ignore the last character as it will be an extra '&'
-    request_url = request_string[:-1]
-    return requests.get(request_url).json()
-    
-    
+    Parameters
+    ----------
+    course: str
+        Limit the grades returned to only this course.
+    professor: str
+        The name of the professor to return grades for.
+    semester: str
+        The semester to return grades for. This should be passed as the year
+        followed by the semester code. The spring semester code is 01 and the
+        fall semester code is 08. For example, 202001 is Spring 2020.
+    """
+    params = {"course" : course, "professor": professor, "semester": semester,
+              "section": section}
+    params = {k:v for k, v in params.items() if v is not None}
+    url = BASE_URL + "grades?" + urlencode(params)
+    return requests.get(url).json()
