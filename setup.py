@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="planetterp", # Replace with your own username
-    version="1.0.3",
+    name="planetterp",
+    version="1.0.0",
     author="PlanetTerp",
     author_email="admin@planetterp.com",
     description="PlanetTerp API Python wrapper",
