@@ -1,13 +1,24 @@
 import setuptools
+import re
 
 with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
-__version__ = "1.0.0"
+# https://stackoverflow.com/a/7071358
+VERSION = "Unknown"
+VERSION_RE = r"^__version__ = ['\"]([^'\"]*)['\"]"
+
+with open("planetterp/version.py") as f:
+    match = re.search(VERSION_RE, f.read())
+    if match:
+        VERSION = match.group(1)
+    else:
+        raise RuntimeError("Unable to find version string in planetterp/version.py")
+
 
 setuptools.setup(
     name="planetterp",
-    version=__version__,
+    version=VERSION,
     author="PlanetTerp",
     author_email="admin@planetterp.com",
     description="PlanetTerp API Python wrapper",
