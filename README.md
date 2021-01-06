@@ -11,8 +11,10 @@ import planetterp
 
 course = planetterp.course(name="MATH140", reviews=True)
 courses = planetterp.courses(department="MATH", limit=2)
+# replace Jon Snow with the name of any professor
 prof = planetterp.professor(name="Jon Snow", reviews="true")
 profs = planetterp.professors(type_="ta", limit=2)
+# same here
 grades = planetterp.grades(course="MATH140", professor="Jon Snow")
 
 print(course)
