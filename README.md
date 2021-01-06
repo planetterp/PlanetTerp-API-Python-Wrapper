@@ -1,10 +1,25 @@
 # PlanetTerp API Python Wrapper
-This API Example includes an object, **PlanetTerp.py**, which can be created and called in order to access information from the PlanetTerp API. 
 
-The `PlanetTerp` object uses the `requests` and `json` packages. One or both of these may already be installed for you. To install them to your computer, use something like `pip3` or `brew`. 
+This is a Python wrapper around the [PlanetTerp API](http://api.planetterp.com).
 
-The `requests` package allows the `PlanetTerp` object to access data from the internet, enabling it to make API calls. The `json` package converts the JSON data provided by the PlanetTerp API into a Python dictionary for easier use. 
+To install, either use [the code on GitHub](https://github.com/planetterp/PlanetTerp-API-Python-Wrapper), or install with `pip install planetterp` (you might need to run `pip3 install planetterp`).
 
-You can find examples of how to use a PlanetTerp object in the **sample_usage.py** file.
+### Example usage
 
-To use this code to access the API, simply download or clone this repository, and make your own file in the same folder as **PlanetTerp.py** and **sample_usage.py**.
+```python
+import planetterp
+
+course = planetterp.course(name="MATH140", reviews=True)
+courses = planetterp.courses(department="MATH", limit=2)
+# replace Jon Snow with the name of any professor
+prof = planetterp.professor(name="Jon Snow", reviews="true")
+profs = planetterp.professors(type_="ta", limit=2)
+# same here
+grades = planetterp.grades(course="MATH140", professor="Jon Snow")
+
+print(course)
+print(courses)
+print(prof)
+print(profs)
+print(grades)
+```
