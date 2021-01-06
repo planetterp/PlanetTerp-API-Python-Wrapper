@@ -9,11 +9,11 @@ To install, either use [the code on GitHub](https://github.com/planetterp/Planet
 ```python
 import planetterp
 
-course = planetterp.course(name="CMSC131", reviews=True)
-courses = planetterp.courses(department="CMSC", limit=2)
-prof = planetterp.professor(name="TBA", reviews="true")
+course = planetterp.course(name="MATH140", reviews=True)
+courses = planetterp.courses(department="MATH", limit=2)
+prof = planetterp.professor(name="Jon Snow", reviews="true")
 profs = planetterp.professors(type_="ta", limit=2)
-grades = planetterp.grades(course="CMSC131", professor="TBA")
+grades = planetterp.grades(course="MATH140", professor="Jon Snow")
 
 print(course)
 print(courses)
